@@ -115,28 +115,22 @@ public class FaceView extends View {
                         bottomMouthIndex = j;
                     }
 
-                    Log.d("fujunwei", " ========= found mark type " + Landmark.LEFT_EYE + " " + Landmark.RIGHT_EYE + " " + Landmark.RIGHT_EYE + " " + j);
+                    Log.d("fujunwei", " ========= found mark type " + Landmark.LEFT_EYE + " " + Landmark.RIGHT_EYE + " " + Landmark.BOTTOM_MOUTH + " " + j);
                 }
             }
 
             final PointF corner = face.getPosition();
             if (leftEyeIndex != -1 && rightEyeIndex != -1 && !useGetWidth) {
                 final PointF leftEyePoint = landmarks.get(leftEyeIndex).getPosition();
-                float eyesDistance =
-                        leftEyePoint.x - landmarks.get(rightEyeIndex).getPosition().x;
+                final float eyesDistance = leftEyePoint.x - landmarks.get(rightEyeIndex).getPosition().x;
+                final float eyeMouthDistance = bottomMouthIndex != -1 && useBottomWidth ?
+                        landmarks.get(bottomMouthIndex).getPosition().y - leftEyePoint.y : -1;
                 final PointF midPoint = new PointF(corner.x + face.getWidth() / 2, leftEyePoint.y);
-                // Get bound of face with the distance from eye.y to bottomMouth.y
-                if (bottomMouthIndex != -1 && useBottomWidth) {
-                    final float eyeMouthDistance =
-                            landmarks.get(bottomMouthIndex).getPosition().y - leftEyePoint.y;
-                    if (eyeMouthDistance > eyesDistance) {
-                        eyesDistance = eyeMouthDistance;
-                    }
-                }
                 boundingBox.left = midPoint.x - eyesDistance;
                 boundingBox.top = midPoint.y - eyesDistance;
                 boundingBox.right = boundingBox.left + 2 * eyesDistance;
-                boundingBox.bottom = boundingBox.top + 2 * eyesDistance;
+                float height = eyeMouthDistance > eyesDistance ? eyeMouthDistance + eyesDistance : 2 * eyesDistance;
+                boundingBox.bottom = boundingBox.top + height;
             } else {
                 boundingBox.left = corner.x;
                 boundingBox.top = corner.y;

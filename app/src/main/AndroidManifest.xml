@@ -17,7 +17,7 @@
 
         <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>
 
-        <activity android:name="com.google.android.gms.samples.vision.face.photo.PhotoViewerActivity">
+        <activity android:name="com.example.gmsvision.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -48,12 +48,9 @@ public class PhotoViewerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_viewer);
 
-//        InputStream stream = getResources().openRawResource(R.raw.mona_lisa);
- //       Bitmap bitmap = BitmapFactory.decodeStream(stream);
-        Log.d("fujunwei", "===============pathcsdsd ");
-       File sdCard = Environment.getExternalStorageDirectory();
-       Log.d("fujunwei", "===============pathc " + sdCard.getAbsolutePath());
-       Bitmap bitmap = BitmapFactory.decodeFile("/storage/emulated/legacy/Pictures/mona_lisa.jpg");//sdCard.getAbsolutePath() + "/Pictures/mona_lisa.jpg");
+        InputStream stream = getResources().openRawResource(R.raw.mona_lisa);
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+//       Bitmap bitmap = BitmapFactory.decodeFile("/storage/emulated/legacy/Pictures/mona_lisa.jpg");
        ByteBuffer buffer = ByteBuffer.allocate(bitmap.getByteCount());
        bitmap.copyPixelsToBuffer(buffer);
 
