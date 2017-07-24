@@ -48,7 +48,7 @@ public class PhotoViewerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_viewer);
 
-        InputStream stream = getResources().openRawResource(R.raw.mona_lisa);
+        InputStream stream = getResources().openRawResource(R.raw.pose);
         Bitmap bitmap = BitmapFactory.decodeStream(stream);
 //       Bitmap bitmap = BitmapFactory.decodeFile("/storage/emulated/legacy/Pictures/mona_lisa.jpg");
        ByteBuffer buffer = ByteBuffer.allocate(bitmap.getByteCount());

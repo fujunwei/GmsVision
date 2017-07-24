@@ -89,7 +89,7 @@ public class FaceView extends View {
     }
 
 
-    private RectF getFaceBounds(boolean useGetWidth, boolean useBottomWidth) {
+    private RectF getFaceBounds(boolean useGetWidth, boolean useBottomWidth, Canvas canvas, Paint paint, float scale) {
         RectF boundingBox = new RectF();
         for (int i = 0; i < mFaces.size(); i++) {
             final Face face = mFaces.valueAt(i);
@@ -114,6 +114,8 @@ public class FaceView extends View {
                         assert landmarkType == Landmark.BOTTOM_MOUTH;
                         bottomMouthIndex = j;
                     }
+
+                    canvas.drawCircle(landmark.getPosition().x * scale, landmark.getPosition().y * scale, 5 * scale, paint);
 
                     Log.d("fujunwei", " ========= found mark type " + Landmark.LEFT_EYE + " " + Landmark.RIGHT_EYE + " " + Landmark.BOTTOM_MOUTH + " " + j);
                 }
@@ -155,20 +157,20 @@ public class FaceView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
 
-        RectF boundingBox = getFaceBounds(true, false);
         float d = (float) scale;
+        RectF boundingBox = getFaceBounds(true, false, canvas, paint, d);
         paint.setColor(Color.RED);
         canvas.drawRect(boundingBox.left * d , boundingBox.top * d, boundingBox.right * d  , boundingBox.bottom * d , paint);
 
         paint.setColor(Color.BLUE);
         canvas.drawRect(24 * d, 20 * d, 64 * d, 60 * d, paint);
 
-        boundingBox = getFaceBounds(false, false);
+        boundingBox = getFaceBounds(false, false, canvas, paint, d);
         d = (float) scale;
         paint.setColor(Color.GREEN);
         canvas.drawRect(boundingBox.left * d , boundingBox.top * d, boundingBox.right * d  , boundingBox.bottom * d , paint);
 
-        boundingBox = getFaceBounds(false, true);
+        boundingBox = getFaceBounds(false, true, canvas, paint, d);
         d = (float) scale;
         paint.setColor(Color.YELLOW);
         canvas.drawRect(boundingBox.left * d , boundingBox.top * d, boundingBox.right * d  , boundingBox.bottom * d , paint);
